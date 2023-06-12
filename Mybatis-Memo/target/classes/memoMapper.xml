@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.memo.dao.MemoMapper">
+
+	<!-- 메모 등록 -->
+	<insert id="insertMemo">
+		<selectKey keyProperty="no" resultType="int" order="BEFORE">
+			select seq_memo.nextval from dual
+		</selectKey>
+		insert into memo (
+		no,
+		title,
+		content
+		) values (
+		#{no},
+		#{title},
+		#{content}
+		)
+	</insert>
+
+	<!-- 메모 수정 -->
+	<update id="updateMemo" parameterType="memo">
+		update memo
+		<set>
+			title = #{title},
+			content = #{content}
+		</set>
+		where
+		no =#{no}
+	</update>
+
+	<!-- 메모 삭제 -->
+	<delete id="deleteMemo">
+		delete from memo where no = #{no}
+	</delete>
+
+	<!-- 메모 검색 -->
+	<select id="selectMemo" resultType="memo">
+		select * from memo
+		where no =
+		#{no}
+	</select>
+
+	<!-- 메모 전체출력 -->
+	<select id="selectAllMemo" resultType="memo">
+		select * from memo
+	</select>
+
+</mapper>
